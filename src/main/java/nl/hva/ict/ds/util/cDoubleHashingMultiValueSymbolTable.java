@@ -4,8 +4,9 @@ import nl.hva.ict.ds.Player;
 
 import java.util.List;
 
-public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
-    public DoubleHashingMultiValueSymbolTable(int arraySize) {
+public class cDoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
+    public cDoubleHashingMultiValueSymbolTable(int arraySize) {
+
     }
 
     @Override

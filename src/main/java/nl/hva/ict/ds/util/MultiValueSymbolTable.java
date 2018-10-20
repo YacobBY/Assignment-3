@@ -3,8 +3,8 @@ package nl.hva.ict.ds.util;
 import java.util.List;
 
 /**
- * This special symbol table is capable of storing multiple values under the same key. When
- * retrieving from this symbol table a list of values is returned.
+ * This special symbol table is capable of storing multiple values under the same key.
+ * When retrieving from this symbol table a list of values is returned.
  * @param <K> the type of the key.
  * @param <V> the type of the values.
  */

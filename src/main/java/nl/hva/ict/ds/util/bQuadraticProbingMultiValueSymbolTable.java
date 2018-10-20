@@ -4,8 +4,8 @@ import nl.hva.ict.ds.Player;
 
 import java.util.List;
 
-public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
-    public QuadraticProbingMultiValueSymbolTable(int arraySize) {
+public class bQuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
+    public bQuadraticProbingMultiValueSymbolTable(int arraySize) {
     }
 
     @Override

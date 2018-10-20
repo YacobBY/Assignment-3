@@ -1,9 +1,9 @@
 package nl.hva.ict.ds;
 
-import nl.hva.ict.ds.util.DoubleHashingMultiValueSymbolTable;
-import nl.hva.ict.ds.util.LinearProbingMultiValueSymbolTable;
+import nl.hva.ict.ds.util.cDoubleHashingMultiValueSymbolTable;
+import nl.hva.ict.ds.util.aLinearProbingMultiValueSymbolTable;
 import nl.hva.ict.ds.util.MultiValueSymbolTable;
-import nl.hva.ict.ds.util.QuadraticProbingMultiValueSymbolTable;
+import nl.hva.ict.ds.util.bQuadraticProbingMultiValueSymbolTable;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -26,9 +26,9 @@ public class HighScorePlayerFinder implements HighScoreList {
     private MultiValueSymbolTable<String, Player> fullNameFinder;
 
     public HighScorePlayerFinder(int arraySize) {
-        firstNameFinder = new LinearProbingMultiValueSymbolTable(arraySize);
-        lastNameFinder = new QuadraticProbingMultiValueSymbolTable(arraySize);
-        fullNameFinder = new DoubleHashingMultiValueSymbolTable(arraySize);
+        firstNameFinder = new aLinearProbingMultiValueSymbolTable(arraySize);
+        lastNameFinder = new bQuadraticProbingMultiValueSymbolTable(arraySize);
+        fullNameFinder = new cDoubleHashingMultiValueSymbolTable(arraySize);
     }
 
     @Override
