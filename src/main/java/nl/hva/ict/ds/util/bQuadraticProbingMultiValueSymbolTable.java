@@ -7,6 +7,7 @@ import java.util.List;
 
 public class bQuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
     List<List<Player>> quadraticProbleList = new ArrayList<>();
+
     public bQuadraticProbingMultiValueSymbolTable(int arraySize) {
         for (int i = 0; i < arraySize; i++) {
             quadraticProbleList.add(new ArrayList<>());
@@ -16,21 +17,21 @@ public class bQuadraticProbingMultiValueSymbolTable implements MultiValueSymbolT
     @Override
     public void put(String key, Player value) {
 
-            int counter = 0;
-            int index = counterKeyHash(key, counter);
-            while ((!quadraticProbleList.get(index).isEmpty()) && quadraticProbleList.get(index).get(0).getLastName() != key  ) {
-                counter++;
-                index = counterKeyHash(key, counter);
-                }
-            quadraticProbleList.get(index).add(value);
+        int counter = 0;
+        int index = counterKeyHash(key, counter);
+        while ((!quadraticProbleList.get(index).isEmpty()) && quadraticProbleList.get(index).get(0).getLastName() != key) {
+            counter++;
+            index = counterKeyHash(key, counter);
         }
+        quadraticProbleList.get(index).add(value);
+    }
 
 
     @Override
     public List<Player> get(String key) {
         int counter = 0;
         int index = counterKeyHash(key, counter);
-        while (!quadraticProbleList.get(index).isEmpty() && quadraticProbleList.get(index).get(0).getLastName() != key  ) {
+        while (!quadraticProbleList.get(index).isEmpty() && quadraticProbleList.get(index).get(0).getLastName() != key) {
             counter++;
             index = counterKeyHash(key, counter);
         }
@@ -38,19 +39,14 @@ public class bQuadraticProbingMultiValueSymbolTable implements MultiValueSymbolT
 
     }
 
-    public int counterKeyHash(String key, int counter) {
+    public int counterKeyHash(String key, int collisionCounter) {
         int hash = 0;
-        if (counter ==0) {
-            for (int i = 0; i < key.length(); i++) {
-                hash = hash + key.charAt(i);
-            }
+        for (int i = 0; i < key.length(); i++) {
+            hash = hash + key.charAt(i);
         }
-        else {
-            for (int i = 0; i < key.length(); i++) {
-                hash = hash + key.charAt(i);
-                hash += (counter*counter);
-
-            }
+        //Nadat collision is opgetreden is wordt dit uitgevoerd
+        if (collisionCounter != 0) {
+            hash += (collisionCounter * collisionCounter);
         }
         hash = hash % quadraticProbleList.size();
         return hash;
