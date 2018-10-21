@@ -2,19 +2,58 @@ package nl.hva.ict.ds.util;
 
 import nl.hva.ict.ds.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class bQuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
+    List<List<Player>> quadraticProbleList = new ArrayList<>();
     public bQuadraticProbingMultiValueSymbolTable(int arraySize) {
+        for (int i = 0; i < arraySize; i++) {
+            quadraticProbleList.add(new ArrayList<>());
+        }
     }
 
     @Override
     public void put(String key, Player value) {
 
-    }
+            int counter = 0;
+            int index = counterKeyHash(key, counter);
+            while ((!quadraticProbleList.get(index).isEmpty()) && quadraticProbleList.get(index).get(0).getLastName() != key  ) {
+                counter++;
+                index = counterKeyHash(key, counter);
+                }
+            quadraticProbleList.get(index).add(value);
+        }
+
 
     @Override
     public List<Player> get(String key) {
-        return null;
+        int counter = 0;
+        int index = counterKeyHash(key, counter);
+        while (!quadraticProbleList.get(index).isEmpty() && quadraticProbleList.get(index).get(0).getLastName() != key  ) {
+            counter++;
+            index = counterKeyHash(key, counter);
+        }
+        return quadraticProbleList.get(index);
+
     }
+
+    public int counterKeyHash(String key, int counter) {
+        int hash = 0;
+        if (counter ==0) {
+            for (int i = 0; i < key.length(); i++) {
+                hash = hash + key.charAt(i);
+            }
+        }
+        else {
+            for (int i = 0; i < key.length(); i++) {
+                hash = hash + key.charAt(i);
+                hash += (counter*counter);
+
+            }
+        }
+        hash = hash % quadraticProbleList.size();
+        return hash;
+    }
+
 }

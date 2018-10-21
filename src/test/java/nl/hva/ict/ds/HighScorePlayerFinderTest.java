@@ -64,10 +64,15 @@ public class HighScorePlayerFinderTest {
     public final void thePottersArePresent() {
         List<Player> potters = highscores.findPlayer(null, "Potter");
 
+        for (Player p:highscores.findPlayer(null, "Potter")) {
+            System.out.println(p.getLastName());
+        }
+
         assertEquals(3, potters.size());
         assertTrue(potters.contains(harry));
         assertTrue(potters.contains(james));
         assertTrue(potters.contains(lily));
+
     }
 
     @Test

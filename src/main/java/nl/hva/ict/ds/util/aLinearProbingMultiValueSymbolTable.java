@@ -30,7 +30,15 @@ public class aLinearProbingMultiValueSymbolTable implements MultiValueSymbolTabl
 
     @Override
     public List<Player> get(String key) {
+        int index = keyHash(key);
+        while (linearProbeList.get(index).get(0).getFirstName() != key) {
+            index++;
+            if (index >= linearProbeList.size()) {
+                index = 0;
+            }
+        }
         return linearProbeList.get(keyHash(key));
+
     }
 
     public int keyHash(String key) {
