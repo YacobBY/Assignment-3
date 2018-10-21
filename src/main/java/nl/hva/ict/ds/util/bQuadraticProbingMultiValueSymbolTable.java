@@ -19,7 +19,7 @@ public class bQuadraticProbingMultiValueSymbolTable implements MultiValueSymbolT
 
         int counter = 0;
         int index = counterKeyHash(key, counter);
-        while ((!quadraticProbleList.get(index).isEmpty()) && quadraticProbleList.get(index).get(0).getLastName() != key) {
+        while ((!quadraticProbleList.get(index).isEmpty()) && !quadraticProbleList.get(index).get(0).getLastName().equals(key)) {
             counter++;
             index = counterKeyHash(key, counter);
         }
@@ -29,9 +29,10 @@ public class bQuadraticProbingMultiValueSymbolTable implements MultiValueSymbolT
 
     @Override
     public List<Player> get(String key) {
+//        System.out.println(key);
         int counter = 0;
         int index = counterKeyHash(key, counter);
-        while (!quadraticProbleList.get(index).isEmpty() && quadraticProbleList.get(index).get(0).getLastName() != key) {
+        while (!quadraticProbleList.get(index).isEmpty() && !quadraticProbleList.get(index).get(0).getLastName().equals(key)) {
             counter++;
             index = counterKeyHash(key, counter);
         }
