@@ -5,10 +5,10 @@ import nl.hva.ict.ds.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class aLinearProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
+public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
     List<List<Player>> linearProbeList = new ArrayList<>();
 
-    public aLinearProbingMultiValueSymbolTable(int arraySize) {
+    public LinearProbingMultiValueSymbolTable(int arraySize) {
         for (int i = 0; i < arraySize; i++) {
             linearProbeList.add(new ArrayList<>());
         }

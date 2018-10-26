@@ -5,10 +5,10 @@ import nl.hva.ict.ds.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class bQuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
+public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
     List<List<Player>> quadraticProbleList = new ArrayList<>();
 
-    public bQuadraticProbingMultiValueSymbolTable(int arraySize) {
+    public QuadraticProbingMultiValueSymbolTable(int arraySize) {
         for (int i = 0; i < arraySize; i++) {
             quadraticProbleList.add(new ArrayList<>());
         }

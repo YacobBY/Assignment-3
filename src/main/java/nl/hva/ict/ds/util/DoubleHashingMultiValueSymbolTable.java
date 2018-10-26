@@ -5,10 +5,10 @@ import nl.hva.ict.ds.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class cDoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
+public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
     List<List<Player>> doubleHashingList = new ArrayList<>();
 
-    public cDoubleHashingMultiValueSymbolTable(int arraySize) {
+    public DoubleHashingMultiValueSymbolTable(int arraySize) {
         for (int i = 0; i < arraySize; i++) {
             doubleHashingList.add(new ArrayList<>());
         }
