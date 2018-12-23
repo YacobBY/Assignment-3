@@ -6,15 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
-    List<List<Player>> doubleHashingList;
+    List<List<Player>> doubleHashingList = new ArrayList<>();
 
+    int doubleHashCollisionCount=0;
+//bestaat dit
     public int getDoubleHashCollisionCount() {
         return doubleHashCollisionCount;
     }
 
     public DoubleHashingMultiValueSymbolTable(int arraySize) {
         for (int i = 0; i < arraySize; i++) {
-            doubleHashingList.add(new ArrayList<Player>());
+            doubleHashingList.add(new ArrayList<>());
         }
     }
 
