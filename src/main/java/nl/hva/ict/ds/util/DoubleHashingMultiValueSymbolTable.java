@@ -8,6 +8,10 @@ import java.util.List;
 public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
     List<List<Player>> doubleHashingList;
 
+    public int getDoubleHashCollisionCount() {
+        return doubleHashCollisionCount;
+    }
+
     public DoubleHashingMultiValueSymbolTable(int arraySize) {
         for (int i = 0; i < arraySize; i++) {
             doubleHashingList.add(new ArrayList<Player>());
@@ -22,9 +26,11 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
 
         while ((!doubleHashingList.get(index).isEmpty()) && (getFullName(doubleHashingList.get(index).get(0))) != key) {
             counter++;
+            doubleHashCollisionCount++;
             index = doubleCounterKeyHash(key, counter);
         }
         doubleHashingList.get(index).add(value);
+        System.out.println("double hash collision count: "+getDoubleHashCollisionCount());
 
     }
 

@@ -8,6 +8,12 @@ import java.util.List;
 public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
     List<List<Player>> linearProbeList = new ArrayList<>();
 
+    public int linearCollisionCount =0;
+
+    public int getLinearCollisionCountt() {
+        return this.linearCollisionCount;
+    }
+
     public LinearProbingMultiValueSymbolTable(int arraySize) {
         for (int i = 0; i < arraySize; i++) {
             linearProbeList.add(new ArrayList<>());
@@ -21,11 +27,13 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
         int index = keyHash(key);
         while (!linearProbeList.get(index).isEmpty()) {
             index++;
+            linearCollisionCount++;
             if (index >= linearProbeList.size()) {
                 index = 0;
             }
         }
         linearProbeList.get(index).add(value);
+        System.out.println("linear probe collision count: "+getLinearCollisionCountt());
     }
 
     @Override
@@ -44,7 +52,7 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
     public int keyHash(String key) {
         int hash = 0;
         for (int i = 0; i < key.length(); i++) {
-            hash = hash + key.charAt(i);
+            hash = hash + key.charAt(i)*461;
         }
         hash = hash % linearProbeList.size();
         return hash;

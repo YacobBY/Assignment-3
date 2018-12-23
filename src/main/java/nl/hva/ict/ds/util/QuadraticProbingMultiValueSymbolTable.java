@@ -8,6 +8,12 @@ import java.util.List;
 public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
     List<List<Player>> quadraticProbleList = new ArrayList<>();
 
+    int quadraticCollisionCount;
+
+    public int getQuadraticCollisionCount() {
+        return quadraticCollisionCount;
+    }
+
     public QuadraticProbingMultiValueSymbolTable(int arraySize) {
         for (int i = 0; i < arraySize; i++) {
             quadraticProbleList.add(new ArrayList<>());
@@ -21,9 +27,11 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
         int index = counterKeyHash(key, counter);
         while ((!quadraticProbleList.get(index).isEmpty()) && !quadraticProbleList.get(index).get(0).getLastName().equals(key)) {
             counter++;
+            quadraticCollisionCount++;
             index = counterKeyHash(key, counter);
         }
         quadraticProbleList.get(index).add(value);
+        System.out.println("quadratic probe collision count: "+getQuadraticCollisionCount());
     }
 
 

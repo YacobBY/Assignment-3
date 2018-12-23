@@ -88,11 +88,12 @@ public class HighScorePlayerFinderTest {
         String [] firstNames = new NameReader("/firstnames.txt").getNames();
         String [] lastNames = new NameReader("/lastnames.txt").getNames();
 
-        highscores = new HighScorePlayerFinder(10501); // Please adjust this size!
+        highscores = new HighScorePlayerFinder(15401); // Please adjust this size!
         for (int i = 0; i < 10000; i++) {
             String firstName = firstNames[randomizer.nextInt(firstNames.length)];
             String lastName = lastNames[randomizer.nextInt(lastNames.length)];
             highscores.add(new Player(firstName, lastName, randomizer.nextInt(1000)));
+
         }
     }
 }
