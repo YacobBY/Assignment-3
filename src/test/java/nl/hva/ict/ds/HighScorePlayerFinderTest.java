@@ -95,5 +95,4 @@ public class HighScorePlayerFinderTest {
             highscores.add(new Player(firstName, lastName, randomizer.nextInt(1000)));
         }
     }
-
 }
