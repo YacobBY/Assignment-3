@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 
 /**
  * If you have any tests that should be overwritten or added please put them to this class.

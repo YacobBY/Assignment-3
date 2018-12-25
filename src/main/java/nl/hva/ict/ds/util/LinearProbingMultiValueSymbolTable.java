@@ -10,7 +10,7 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
 
     public int linearCollisionCount =0;
 
-    public int getLinearCollisionCountt() {
+    public int getLinearCollisionCount() {
         return this.linearCollisionCount;
     }
 
@@ -33,7 +33,7 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
             }
         }
         linearProbeList.get(index).add(value);
-        System.out.println("linear probe collision count: "+getLinearCollisionCountt());
+        System.out.println("linear probe collision count: " + getLinearCollisionCount());
     }
 
     @Override

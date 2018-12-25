@@ -58,8 +58,12 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
             hash = hash + key.charAt(i);
         }
         //Nadat collision is opgetreden is wordt dit uitgevoerd
-        if (collisionCounter != 0) {
-            hash += collisionCounter*31;
+        if (collisionCounter ==1){
+            hash += collisionCounter*479;
+        }
+        //Nadat collision is opgetreden is wordt dit uitgevoerd
+        if (collisionCounter >1 ) {
+            hash += collisionCounter*673;
         }
         hash = hash % doubleHashingList.size();
         return hash;
