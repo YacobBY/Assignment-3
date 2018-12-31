@@ -7,12 +7,8 @@ import java.util.List;
 
 public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
     List<List<Player>> quadraticProbleList = new ArrayList<>();
-
     int quadraticCollisionCount;
-
-    public int getQuadraticCollisionCount() {
-        return quadraticCollisionCount;
-    }
+    int secondReset = 0;
 
     public QuadraticProbingMultiValueSymbolTable(int arraySize) {
         for (int i = 0; i < arraySize; i++) {
@@ -20,18 +16,22 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
         }
     }
 
+    public int getQuadraticCollisionCount() {
+        return quadraticCollisionCount;
+    }
+
     @Override
     public void put(String key, Player value) {
 
         int counter = 0;
         int index = counterKeyHash(key, counter);
-        while ((!quadraticProbleList.get(index).isEmpty()) && !quadraticProbleList.get(index).get(0).getLastName().equals(key)) {
+        while (index >= 0 && (!quadraticProbleList.get(index).isEmpty())) {
             counter++;
             quadraticCollisionCount++;
             index = counterKeyHash(key, counter);
         }
         quadraticProbleList.get(index).add(value);
-        System.out.println("quadratic probe collision count: "+getQuadraticCollisionCount());
+        System.out.println("quadratic probe collision count: " + getQuadraticCollisionCount());
     }
 
 
@@ -40,7 +40,7 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
 //        System.out.println(key);
         int counter = 0;
         int index = counterKeyHash(key, counter);
-        while (!quadraticProbleList.get(index).isEmpty() && !quadraticProbleList.get(index).get(0).getLastName().equals(key)) {
+        while (index > 0 && !quadraticProbleList.get(index).isEmpty()) {
             counter++;
             index = counterKeyHash(key, counter);
         }
@@ -55,9 +55,23 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
         }
         //Nadat collision is opgetreden is wordt dit uitgevoerd
         if (collisionCounter != 0) {
-            hash += (collisionCounter * collisionCounter);
+            System.out.println(collisionCounter);
+
+            if (secondReset == 2) {
+                System.out.println("test");
+                hash += 3;
+                secondReset = 0;
+            }
+
+            System.out.println(hash);
+            hash +=collisionCounter+ (collisionCounter * collisionCounter);
+        }
+        if (hash < 0) {
+            hash = 1;
         }
         hash = hash % quadraticProbleList.size();
+        secondReset++;
+
         return hash;
     }
 
