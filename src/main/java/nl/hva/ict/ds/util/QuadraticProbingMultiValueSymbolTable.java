@@ -21,12 +21,12 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
     @Override
     public void put(String key, Player value) {
 
-        int counter = 0;
-        int index = counterKeyHash(key, counter);
+        int collisionCounter = 0;
+        int index = counterKeyHash(key, collisionCounter);
         while (!(quadraticProbleList[index] == null)) {
-            counter++;
-            quadraticCollisionCount++;
-            index = counterKeyHash(key, counter);
+            collisionCounter++;
+
+            index = counterKeyHash(key, collisionCounter);
         }
         quadraticProbleList[index] = (value);
         System.out.println("quadratic probe collision count: " + getQuadraticCollisionCount());
@@ -37,17 +37,17 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
     public List<Player> get(String key) {
         List<Player> returnList = new ArrayList<>();
 //        System.out.println(key);
-        int counter = 0;
-        int index = counterKeyHash(key, counter);
+        int collisionCounter = 0;
+        int index = counterKeyHash(key, collisionCounter);
         while (quadraticProbleList[index].getLastName() != key) {
-            counter++;
-            index = counterKeyHash(key, counter);
+            collisionCounter++;
+            index = counterKeyHash(key, collisionCounter);
         }
-        while ( quadraticProbleList[index].getLastName() == key) {
+        while (quadraticProbleList[index] != null &&quadraticProbleList[index].getLastName() == key) {
             System.out.println("adding one");
             returnList.add(quadraticProbleList[index]);
-            counter++;
-            index = counterKeyHash(key, counter);
+            collisionCounter++;
+            index = counterKeyHash(key, collisionCounter);
             printAllNamesInArray(returnList);
             System.out.println("came here");
         }
@@ -84,10 +84,8 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
         if (hash < 0) {
             hash = 1;
         }
-
         secondReset++;
         hash = hash % quadraticProbleList.length;
         return hash;
     }
-
 }

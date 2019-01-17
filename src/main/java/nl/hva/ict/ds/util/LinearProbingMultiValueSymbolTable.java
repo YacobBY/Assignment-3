@@ -25,7 +25,6 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
         int index = keyHash(key);
         while (!(linearProbeList[index] == null)) {
             index++;
-            linearCollisionCount++;
             if (index >= linearProbeList.length) {
                 index = 0;
             }
@@ -40,6 +39,7 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
         int index = keyHash(key);
         while (linearProbeList[index].getFirstName() != key) {
             index++;
+            linearCollisionCount++;
             if (index >= linearProbeList.length) {
                 index = 0;
             }
