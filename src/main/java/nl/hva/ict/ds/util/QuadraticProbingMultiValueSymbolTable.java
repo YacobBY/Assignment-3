@@ -43,35 +43,50 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
             counter++;
             index = counterKeyHash(key, counter);
         }
-        returnList.add(quadraticProbleList[index]);
+        while ( quadraticProbleList[index].getLastName() == key) {
+            System.out.println("adding one");
+            returnList.add(quadraticProbleList[index]);
+            counter++;
+            index = counterKeyHash(key, counter);
+            printAllNamesInArray(returnList);
+            System.out.println("came here");
+        }
         return returnList;
+    }
 
+    public void printAllNamesInArray(List<Player> playerArray){
+        for (int i = 0; i <playerArray.size() ; i++) {
+            if (playerArray.get(i) == null){
+                System.out.println("empty index " + i);
+            }
+            else System.out.println(playerArray.get(i).getLastName());
+        }
     }
 
     public int counterKeyHash(String key, int collisionCounter) {
         int hash = 0;
         for (int i = 0; i < key.length(); i++) {
-            hash = hash + key.charAt(i);
+            hash = hash + key.charAt(i)*461;
         }
         //Nadat collision is opgetreden is wordt dit uitgevoerd
         if (collisionCounter != 0) {
             System.out.println(collisionCounter);
 
-            if (secondReset == 2) {
-                System.out.println("test");
-                hash += 3;
-                secondReset = 0;
-            }
+//            if (secondReset == 2) {
+//                System.out.println("test");
+//                hash += 3;
+//                secondReset = 0;
+//            }
 
             System.out.println(hash);
-            hash += collisionCounter + (collisionCounter * collisionCounter);
+            hash += collisionCounter +3+ (collisionCounter * collisionCounter);
         }
         if (hash < 0) {
             hash = 1;
         }
-        hash = hash % quadraticProbleList.length;
-        secondReset++;
 
+        secondReset++;
+        hash = hash % quadraticProbleList.length;
         return hash;
     }
 
