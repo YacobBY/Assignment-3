@@ -25,7 +25,7 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
 
         int counter = 0;
         int index = counterKeyHash(key, counter);
-        while ((!quadraticProbleList.get(index).isEmpty()) && !quadraticProbleList.get(index).get(0).getLastName().equals(key)) {
+        while ((!quadraticProbleList.get(index).isEmpty()) ) {
             counter++;
             quadraticCollisionCount++;
             index = counterKeyHash(key, counter);
@@ -40,7 +40,7 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
 //        System.out.println(key);
         int counter = 0;
         int index = counterKeyHash(key, counter);
-        while (!quadraticProbleList.get(index).isEmpty() && !quadraticProbleList.get(index).get(0).getLastName().equals(key)) {
+        while ( !quadraticProbleList.get(index).get(0).getLastName().equals(key)) {
             counter++;
             index = counterKeyHash(key, counter);
         }

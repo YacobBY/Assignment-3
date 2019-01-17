@@ -26,7 +26,7 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
         int index = doubleCounterKeyHash(key, counter);
         System.out.println(key);
 
-        while ((!doubleHashingList.get(index).isEmpty()) && (getFullName(doubleHashingList.get(index).get(0))) != key) {
+        while ((!doubleHashingList.get(index).isEmpty())) {
             counter++;
             doubleHashCollisionCount++;
             index = doubleCounterKeyHash(key, counter);

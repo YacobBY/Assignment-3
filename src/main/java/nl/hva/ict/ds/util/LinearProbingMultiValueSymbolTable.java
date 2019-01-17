@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
-    List<List<Player>> linearProbeList = new ArrayList<>();
+    Player[] linearProbeList;
 
     public int linearCollisionCount =0;
 
@@ -15,9 +15,7 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
     }
 
     public LinearProbingMultiValueSymbolTable(int arraySize) {
-        for (int i = 0; i < arraySize; i++) {
-            linearProbeList.add(new ArrayList<>());
-        }
+        linearProbeList = new Player[arraySize];
     }
 
 
@@ -25,27 +23,29 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
     //First name is key, gehele player object is value.
     public void put(String key, Player value) {
         int index = keyHash(key);
-        while (!linearProbeList.get(index).isEmpty()) {
+        while (!(linearProbeList[index] == null)) {
             index++;
             linearCollisionCount++;
-            if (index >= linearProbeList.size()) {
+            if (index >= linearProbeList.length) {
                 index = 0;
             }
         }
-        linearProbeList.get(index).add(value);
+        linearProbeList[index] = (value);
         System.out.println("linear probe collision count: " + getLinearCollisionCount());
     }
 
     @Override
     public List<Player> get(String key) {
+        List<Player> returnList = new ArrayList<>();
         int index = keyHash(key);
-        while (linearProbeList.get(index).get(0).getFirstName() != key) {
+        while (linearProbeList[index].getFirstName() != key) {
             index++;
-            if (index >= linearProbeList.size()) {
+            if (index >= linearProbeList.length) {
                 index = 0;
             }
         }
-        return linearProbeList.get(keyHash(key));
+        returnList.add(linearProbeList[index]);
+        return returnList;
 
     }
 
@@ -54,7 +54,7 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
         for (int i = 0; i < key.length(); i++) {
             hash = hash + key.charAt(i)*461;
         }
-        hash = hash % linearProbeList.size();
+        hash = hash % linearProbeList.length;
         return hash;
     }
 }
