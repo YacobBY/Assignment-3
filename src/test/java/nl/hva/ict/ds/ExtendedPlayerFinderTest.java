@@ -20,5 +20,4 @@ public class ExtendedPlayerFinderTest extends HighScorePlayerFinderTest {
         }
         assertEquals("Jansen", headless.get(0).getLastName());
     }
-
 }
