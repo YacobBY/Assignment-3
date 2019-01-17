@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
-    List<List<Player>> quadraticProbleList = new ArrayList<>();
+    Player[] quadraticProbleList;
     int quadraticCollisionCount;
     int secondReset = 0;
 
     public QuadraticProbingMultiValueSymbolTable(int arraySize) {
-        for (int i = 0; i < arraySize; i++) {
-            quadraticProbleList.add(new ArrayList<>());
-        }
+        quadraticProbleList = new Player[arraySize];
     }
 
     public int getQuadraticCollisionCount() {
@@ -25,26 +23,28 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
 
         int counter = 0;
         int index = counterKeyHash(key, counter);
-        while ((!quadraticProbleList.get(index).isEmpty()) ) {
+        while (!(quadraticProbleList[index] == null)) {
             counter++;
             quadraticCollisionCount++;
             index = counterKeyHash(key, counter);
         }
-        quadraticProbleList.get(index).add(value);
+        quadraticProbleList[index] = (value);
         System.out.println("quadratic probe collision count: " + getQuadraticCollisionCount());
     }
 
 
     @Override
     public List<Player> get(String key) {
+        List<Player> returnList = new ArrayList<>();
 //        System.out.println(key);
         int counter = 0;
         int index = counterKeyHash(key, counter);
-        while ( !quadraticProbleList.get(index).get(0).getLastName().equals(key)) {
+        while (quadraticProbleList[index].getLastName() != key) {
             counter++;
             index = counterKeyHash(key, counter);
         }
-        return quadraticProbleList.get(index);
+        returnList.add(quadraticProbleList[index]);
+        return returnList;
 
     }
 
@@ -64,12 +64,12 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
             }
 
             System.out.println(hash);
-            hash +=collisionCounter+ (collisionCounter * collisionCounter);
+            hash += collisionCounter + (collisionCounter * collisionCounter);
         }
         if (hash < 0) {
             hash = 1;
         }
-        hash = hash % quadraticProbleList.size();
+        hash = hash % quadraticProbleList.length;
         secondReset++;
 
         return hash;
