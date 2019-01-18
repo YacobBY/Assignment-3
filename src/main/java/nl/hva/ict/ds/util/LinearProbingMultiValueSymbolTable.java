@@ -38,7 +38,7 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
     public List<Player> get(String key) {
         List<Player> returnList = new ArrayList<>();
         int index = keyHash(key);
-        while (linearProbeList[index].getFirstName() != key) {
+        while (!linearProbeList[index].getFirstName().equals(key)) {
             index++;
             linearCollisionCount++;
             if (index >= linearProbeList.length) {

@@ -48,6 +48,7 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
         while (quadraticProbleList[index] != null && quadraticProbleList[index].getLastName().equals(key)) {
 //            System.out.println("adding target to list");
             returnList.add(quadraticProbleList[index]);
+            //Removes the index so it can't be reached again through a repeating loop
             quadraticProbleList[index] = null;
             collisionCounter++;
             quadraticCollisionCount++;
