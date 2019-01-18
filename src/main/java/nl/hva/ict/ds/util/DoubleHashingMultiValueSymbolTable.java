@@ -80,16 +80,15 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
         //Nadat collision is opgetreden is wordt dit uitgevoerd
         if (collisionCounter == 0) {
             for (int i = 0; i < key.length(); i++) {
-                hash = hash + key.charAt(i) * 4139 ;
+                hash = hash + key.charAt(i) * 457;
             }
-            hash += 3877 + collisionCounter * collisionCounter;
         }
         //Nadat collision is opgetreden is wordt dit uitgevoerd
-        if (collisionCounter > 1) {
+        if (collisionCounter >= 1) {
             for (int i = 0; i < key.length(); i++) {
-                hash = hash + key.charAt(i) * 3877;
+                hash = hash + key.charAt(i) * 509;
             }
-            hash += 3877 + collisionCounter * collisionCounter;
+            hash += collisionCounter * collisionCounter;
         }
 
         if (hash < 0) {
