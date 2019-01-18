@@ -24,10 +24,12 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
         int index = keyHash(key);
         while (!(linearProbeList[index] == null)) {
             index++;
+            linearCollisionCount++;
             if (index >= linearProbeList.length) {
                 index = 0;
             }
         }
+
         linearProbeList[index] = (value);
         System.out.println("linear probe collision count: " + getLinearCollisionCount());
     }
