@@ -75,13 +75,6 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
         //Nadat collision is opgetreden is wordt dit uitgevoerd
         if (collisionCounter != 0) {
 //            System.out.println(collisionCounter);
-
-            if (secondReset == 2) {
-                System.out.println("test");
-                hash += 3;
-                secondReset = 0;
-            }
-
 //            System.out.println(hash);
             hash += collisionCounter + 3 + (collisionCounter * collisionCounter);
         }
