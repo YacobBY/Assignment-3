@@ -42,14 +42,14 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
 //        System.out.println(key);
         int collisionCounter = 0;
         int index = doubleCounterKeyHash(key, collisionCounter);
-        while (doubleHashingList[index] != null && !(getFullName(doubleHashingList[index]).equals(key))) {
+        while (!(getFullName(doubleHashingList[index]).equals(key))) {
 
             System.out.println("doublehashing");
             collisionCounter++;
             doubleHashCollisionCount++;
             index = doubleCounterKeyHash(key, collisionCounter);
         }
-        while (doubleHashingList[index] != null && (getFullName(doubleHashingList[index]).equals(key))) {
+        while ((getFullName(doubleHashingList[index]).equals(key))) {
             System.out.println(getFullName(doubleHashingList[index]));
             System.out.println("adding target to list");
             returnList.add(doubleHashingList[index]);
