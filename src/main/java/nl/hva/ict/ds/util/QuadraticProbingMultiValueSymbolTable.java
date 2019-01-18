@@ -70,13 +70,13 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
     public int counterKeyHash(String key, int collisionCounter) {
         int hash = 0;
         for (int i = 0; i < key.length(); i++) {
-            hash = hash + key.charAt(i)*461;
+            hash = hash + key.charAt(i)*3877;
         }
         //Nadat collision is opgetreden is wordt dit uitgevoerd
         if (collisionCounter != 0) {
 //            System.out.println(collisionCounter);
 //            System.out.println(hash);
-            hash += collisionCounter + 3 + (collisionCounter * collisionCounter);
+            hash += 3877 + (collisionCounter * collisionCounter);
         }
         if (hash < 0) {
             hash = 1;

@@ -9,14 +9,15 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
 
     Player[] doubleHashingList;
 
-    int doubleHashCollisionCount=0;
-//bestaat dit
-    public int getDoubleHashCollisionCount() {
-        return doubleHashCollisionCount;
-    }
+    int doubleHashCollisionCount = 0;
 
     public DoubleHashingMultiValueSymbolTable(int arraySize) {
         doubleHashingList = new Player[arraySize];
+    }
+
+    //bestaat dit
+    public int getDoubleHashCollisionCount() {
+        return doubleHashCollisionCount;
     }
 
     @Override
@@ -31,7 +32,7 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
             index = doubleCounterKeyHash(key, collisionCounter);
         }
         doubleHashingList[index] = (value);
-        System.out.println("double hash collision count: "+getDoubleHashCollisionCount());
+        System.out.println("double hash collision count: " + getDoubleHashCollisionCount());
     }
 
 
@@ -41,7 +42,7 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
 //        System.out.println(key);
         int collisionCounter = 0;
         int index = doubleCounterKeyHash(key, collisionCounter);
-        while (doubleHashingList[index] !=null && !(getFullName(doubleHashingList[index]).equals(key))) {
+        while (doubleHashingList[index] != null && !(getFullName(doubleHashingList[index]).equals(key))) {
 
             System.out.println("doublehashing");
             collisionCounter++;
@@ -60,12 +61,12 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
         }
         return returnList;
     }
-    public void printAllNamesInArray(List<Player> playerArray){
-        for (int i = 0; i <playerArray.size() ; i++) {
-            if (playerArray.get(i) == null){
+
+    public void printAllNamesInArray(List<Player> playerArray) {
+        for (int i = 0; i < playerArray.size(); i++) {
+            if (playerArray.get(i) == null) {
                 System.out.println("empty index " + i);
-            }
-            else System.out.println(playerArray.get(i).getLastName());
+            } else System.out.println(playerArray.get(i).getLastName());
         }
     }
 
@@ -73,26 +74,31 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
         return (player.getFirstName() + player.getLastName());
 
     }
+
     public int doubleCounterKeyHash(String key, int collisionCounter) {
         int hash = 0;
-        for (int i = 0; i < key.length(); i++) {
-            hash = hash + key.charAt(i)*461;
+        //Nadat collision is opgetreden is wordt dit uitgevoerd
+        if (collisionCounter == 0) {
+            for (int i = 0; i < key.length(); i++) {
+                hash = hash + key.charAt(i) * 4139 ;
+            }
+            hash += 3877 + collisionCounter * collisionCounter;
         }
         //Nadat collision is opgetreden is wordt dit uitgevoerd
-        if (collisionCounter ==1){
-            hash += collisionCounter*479;
+        if (collisionCounter > 1) {
+            for (int i = 0; i < key.length(); i++) {
+                hash = hash + key.charAt(i) * 3877;
+            }
+            hash += 3877 + collisionCounter * collisionCounter;
         }
-        //Nadat collision is opgetreden is wordt dit uitgevoerd
-        if (collisionCounter >1 ) {
-            hash += collisionCounter*673;
-        }
+
         if (hash < 0) {
             hash = 0;
         }
+
         hash = hash % doubleHashingList.length;
         return hash;
     }
-
 
 
 }
