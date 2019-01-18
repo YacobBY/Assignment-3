@@ -45,7 +45,15 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
                 index = 0;
             }
         }
-        returnList.add(linearProbeList[index]);
+        while (linearProbeList[index].getFirstName().equals(key)) {
+            returnList.add(linearProbeList[index]);
+            index++;
+            linearCollisionCount++;
+            if (index >= linearProbeList.length) {
+                index = 0;
+            }
+        }
+
         return returnList;
 
     }
