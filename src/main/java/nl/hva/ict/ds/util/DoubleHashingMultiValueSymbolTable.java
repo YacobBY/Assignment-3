@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable<String, Player> {
-    List<List<Player>> doubleHashingList = new ArrayList<>();
+
+    Player[] doubleHashingList;
 
     int doubleHashCollisionCount=0;
 //bestaat dit
@@ -15,47 +16,67 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
     }
 
     public DoubleHashingMultiValueSymbolTable(int arraySize) {
-        for (int i = 0; i < arraySize; i++) {
-            doubleHashingList.add(new ArrayList<>());
-        }
+        doubleHashingList = new Player[arraySize];
     }
 
     @Override
     public void put(String key, Player value) {
-        int counter = 0;
-        int index = doubleCounterKeyHash(key, counter);
+        int collisionCounter = 0;
+        int index = doubleCounterKeyHash(key, collisionCounter);
 //        System.out.println(key);
 
-        while ((!doubleHashingList.get(index).isEmpty())) {
-            counter++;
+        while (!(doubleHashingList[index] == null)) {
+            collisionCounter++;
             doubleHashCollisionCount++;
-            index = doubleCounterKeyHash(key, counter);
+            index = doubleCounterKeyHash(key, collisionCounter);
         }
-        doubleHashingList.get(index).add(value);
+        doubleHashingList[index] = (value);
         System.out.println("double hash collision count: "+getDoubleHashCollisionCount());
-
     }
 
 
     @Override
     public List<Player> get(String key) {
+        List<Player> returnList = new ArrayList<>();
 //        System.out.println(key);
-        int counter = 0;
-        int index = doubleCounterKeyHash(key, counter);
-        while ((!doubleHashingList.get(index).isEmpty()) && !(getFullName(doubleHashingList.get(index).get(0))).equals(key)) {
-            System.out.println(getFullName(doubleHashingList.get(index).get(0)));
-            counter++;
-            index = doubleCounterKeyHash(key, counter);
+        int collisionCounter = 0;
+        int index = doubleCounterKeyHash(key, collisionCounter);
+        while (doubleHashingList[index] !=null && !(getFullName(doubleHashingList[index]).equals(key))) {
+
+            System.out.println("doublehashing");
+            collisionCounter++;
+            doubleHashCollisionCount++;
+            index = doubleCounterKeyHash(key, collisionCounter);
         }
-        System.out.println(getFullName(doubleHashingList.get(index).get(0)));
-        return doubleHashingList.get(index);
+        while (doubleHashingList[index] != null && (getFullName(doubleHashingList[index]).equals(key))) {
+            System.out.println(getFullName(doubleHashingList[index]));
+            System.out.println("adding target to list");
+            returnList.add(doubleHashingList[index]);
+            collisionCounter++;
+            doubleHashCollisionCount++;
+            index = doubleCounterKeyHash(key, collisionCounter);
+            printAllNamesInArray(returnList);
+//            System.out.println("came here");
+        }
+        return returnList;
+    }
+    public void printAllNamesInArray(List<Player> playerArray){
+        for (int i = 0; i <playerArray.size() ; i++) {
+            if (playerArray.get(i) == null){
+                System.out.println("empty index " + i);
+            }
+            else System.out.println(playerArray.get(i).getLastName());
+        }
     }
 
+    public String getFullName(Player player) {
+        return (player.getFirstName() + player.getLastName());
 
+    }
     public int doubleCounterKeyHash(String key, int collisionCounter) {
         int hash = 0;
         for (int i = 0; i < key.length(); i++) {
-            hash = hash + key.charAt(i);
+            hash = hash + key.charAt(i)*461;
         }
         //Nadat collision is opgetreden is wordt dit uitgevoerd
         if (collisionCounter ==1){
@@ -65,12 +86,13 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
         if (collisionCounter >1 ) {
             hash += collisionCounter*673;
         }
-        hash = hash % doubleHashingList.size();
+        if (hash < 0) {
+            hash = 0;
+        }
+        hash = hash % doubleHashingList.length;
         return hash;
     }
 
 
-    public String getFullName(Player player) {
-        return (player.getFirstName() + player.getLastName());
-    }
+
 }

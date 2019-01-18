@@ -16,7 +16,7 @@ public class ExtendedPlayerFinderTest extends HighScorePlayerFinderTest {
      //Kai
         List<Player> headless = highscores.findPlayer(null, "Jansen");
         for (Player p:headless) {
-            System.out.println(p.getLastName());
+            System.out.println(p);
         }
         assertEquals("Jansen", headless.get(0).getLastName());
     }
