@@ -24,7 +24,7 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
     public void put(String key, Player value) {
         int counter = 0;
         int index = doubleCounterKeyHash(key, counter);
-        System.out.println(key);
+//        System.out.println(key);
 
         while ((!doubleHashingList.get(index).isEmpty())) {
             counter++;
@@ -39,7 +39,7 @@ public class DoubleHashingMultiValueSymbolTable implements MultiValueSymbolTable
 
     @Override
     public List<Player> get(String key) {
-        System.out.println(key);
+//        System.out.println(key);
         int counter = 0;
         int index = doubleCounterKeyHash(key, counter);
         while ((!doubleHashingList.get(index).isEmpty()) && !(getFullName(doubleHashingList.get(index).get(0))).equals(key)) {

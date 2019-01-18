@@ -18,7 +18,6 @@ public class LinearProbingMultiValueSymbolTable implements MultiValueSymbolTable
         linearProbeList = new Player[arraySize];
     }
 
-
     @Override
     //First name is key, gehele player object is value.
     public void put(String key, Player value) {

@@ -39,11 +39,11 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
 //        System.out.println(key);
         int collisionCounter = 0;
         int index = counterKeyHash(key, collisionCounter);
-        while (quadraticProbleList[index].getLastName() != key) {
+        while (quadraticProbleList[index] !=null &&quadraticProbleList[index].getLastName() != key) {
             collisionCounter++;
             index = counterKeyHash(key, collisionCounter);
         }
-        while (quadraticProbleList[index] != null &&quadraticProbleList[index].getLastName() == key) {
+        while (quadraticProbleList[index] != null && quadraticProbleList[index].getLastName() == key) {
             System.out.println("adding one");
             returnList.add(quadraticProbleList[index]);
             collisionCounter++;
@@ -70,7 +70,7 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
         }
         //Nadat collision is opgetreden is wordt dit uitgevoerd
         if (collisionCounter != 0) {
-            System.out.println(collisionCounter);
+//            System.out.println(collisionCounter);
 
 //            if (secondReset == 2) {
 //                System.out.println("test");
@@ -78,14 +78,15 @@ public class QuadraticProbingMultiValueSymbolTable implements MultiValueSymbolTa
 //                secondReset = 0;
 //            }
 
-            System.out.println(hash);
-            hash += collisionCounter +3+ (collisionCounter * collisionCounter);
+//            System.out.println(hash);
+            hash += collisionCounter + 3 + (collisionCounter * collisionCounter);
         }
         if (hash < 0) {
-            hash = 1;
+            hash = 0;
         }
         secondReset++;
         hash = hash % quadraticProbleList.length;
+        quadraticCollisionCount++;
         return hash;
     }
 }
